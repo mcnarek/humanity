@@ -1,0 +1,144 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+}
+
+android {
+    compileSdk versions.compile_sdk_version
+    buildToolsVersion versions.build_tools_version
+    compileSdkVersion versions.compile_sdk_version
+
+    defaultConfig {
+        applicationId weather.app_package
+        minSdk versions.min_sdk_version
+        targetSdk versions.target_sdk_version
+        versionCode weather.version_code
+        versionName weather.version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        buildFeatures.viewBinding = true
+
+        def hostUrl = "\"scylla.ai\""
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'MissingTranslation'
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose_version
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(weather.storeFile)
+            storePassword weather.storePassword
+            keyAlias weather.keyAlias
+            keyPassword weather.keyPassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable = true
+            ext.enableCrashlytics = false
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "false"]
+        }
+
+        debuggableRelease {
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
+            ext.enableCrashlytics = true
+            debuggable = true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
+            ext.enableCrashlytics = true
+            minifyEnabled true
+            shrinkResources true
+            debuggable = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation libs.kotlin
+    implementation libs.coroutines_core
+    implementation libs.coroutines_android
+
+    // Android
+    implementation libs.appCompat
+    implementation libs.core_ktx
+    implementation libs.constraint_layout
+
+    // multidex
+    implementation libs.multiDex
+
+    // lifecycle
+    implementation libs.lifecycle
+    implementation libs.lifecycle_viewmodel
+    implementation libs.material
+
+    // rest network lib
+    implementation libs.retrofit
+    implementation libs.converter_gson
+    implementation libs.okhttp_logging
+    implementation libs.okhttp
+
+    // di
+    implementation libs.hilt
+    kapt libs.hilt_compiller
+    kapt libs.hilt_android_compiller
+    implementation libs.hilt_compose
+
+    // analytics and crashlytics to get user event crash updates
+    implementation platform(libs.firebase_bom)
+    implementation libs.crashlytics_ktx
+    implementation libs.analytics_ktx
+
+    // testing
+    testImplementation libs.jUnit
+    androidTestImplementation libs.ext_jUnit
+    androidTestImplementation libs.espresso_core
+}
+
+kapt {
+    correctErrorTypes true
+}

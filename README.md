@@ -1,2 +1,0 @@
-# humanity
-Humanity app task
