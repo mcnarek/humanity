@@ -14,7 +14,6 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.annotation.CallSuper
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
@@ -27,7 +26,6 @@ import com.humanity.weatherapp.base.extensions.setStatusBarColor
 import com.humanity.weatherapp.databinding.ActivityMainBinding
 import com.humanity.weatherapp.domain.entity.PlaceEntity
 import com.humanity.weatherapp.domain.entity.WeatherEntity
-import com.humanity.weatherapp.domain.enums.WeatherUnits
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -69,6 +67,7 @@ class MainActivity : BaseActivity() {
         setContentView(view)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = null
     }
 
     override fun onResume() {
@@ -85,13 +84,16 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.fahrenheit -> weatherViewModel.changeUnits(WeatherUnits.IMPERIAL)
-            R.id.celsius -> weatherViewModel.changeUnits(WeatherUnits.METRIC)
-            R.id.kelvin -> weatherViewModel.changeUnits(WeatherUnits.STANDARD)
+            R.id.settings -> {
+                FragmentDialogSettings.show(supportFragmentManager) {
+                    weatherViewModel.changeUnits(it)
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item)
     }
+
     /**
      * Request for location updates, first will ask for location permission if not granted before
      */

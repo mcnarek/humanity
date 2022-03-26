@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="8dp"
+    android:background="@color/black_alpha"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonCelsius"
+        style="@style/SettingsOption"
+        android:text="@string/celsius" />
+
+    <include layout="@layout/layout_line" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonFahrenheit"
+        style="@style/SettingsOption"
+        android:text="@string/fahrenheit" />
+
+    <include layout="@layout/layout_line" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonKelvin"
+        style="@style/SettingsOption"
+        android:text="@string/kelvin" />
+
+</LinearLayout>
