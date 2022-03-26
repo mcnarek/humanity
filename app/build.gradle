@@ -24,7 +24,13 @@ android {
         vectorDrawables.useSupportLibrary = true
         buildFeatures.viewBinding = true
 
-        def hostUrl = "\"scylla.ai\""
+        def hostUrl = "\"https://api.openweathermap.org/data/2.5/\""
+        def apiKey = "\"d4eec989d185a0bc73ba3a4778b9672e\""
+        def placesApiKey = "\"AIzaSyBY0xGFiPaC5_8k-0-rpF9qOV-CmWVPjtc\""
+
+        buildConfigField "String", "BASE_URL", hostUrl
+        buildConfigField "String", "API_KEY", apiKey
+        buildConfigField "String", "PLACES_API_KEY", placesApiKey
     }
 
     packagingOptions {
@@ -106,15 +112,21 @@ dependencies {
     // Android
     implementation libs.appCompat
     implementation libs.core_ktx
+    implementation libs.recyclerView
+    implementation libs.swipeRefresh
     implementation libs.constraint_layout
-
-    // multidex
-    implementation libs.multiDex
+    implementation libs.material
 
     // lifecycle
     implementation libs.lifecycle
     implementation libs.lifecycle_viewmodel
-    implementation libs.material
+    implementation libs.activity_ktx
+
+    implementation libs.location
+    implementation libs.places
+
+    // multidex
+    implementation libs.multiDex
 
     // rest network lib
     implementation libs.retrofit
@@ -126,7 +138,6 @@ dependencies {
     implementation libs.hilt
     kapt libs.hilt_compiller
     kapt libs.hilt_android_compiller
-    implementation libs.hilt_compose
 
     // analytics and crashlytics to get user event crash updates
     implementation platform(libs.firebase_bom)
@@ -137,6 +148,10 @@ dependencies {
     testImplementation libs.jUnit
     androidTestImplementation libs.ext_jUnit
     androidTestImplementation libs.espresso_core
+
+    // image loader
+    implementation libs.coil
+    implementation libs.lottie
 }
 
 kapt {

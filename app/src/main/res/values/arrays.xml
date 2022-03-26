@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors">
+        <item>@color/none</item>
+        <item>@color/thunderstorm_color</item>
+        <item>@color/drizzle_color</item>
+        <item>@color/rain_color</item>
+        <item>@color/snow_color</item>
+        <item>@color/fog_color</item>
+        <item>@color/clear_color</item>
+        <item>@color/clouds_color</item>
+    </array>
+</resources>
