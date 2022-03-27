@@ -16,6 +16,7 @@ User can see weather temperature for current location
  - change measurement units as Celsius, Fahrenheight or Kelvin by tapping on the top left gear icon
 
 App will show nearby image in city as background
+Will show weather icon and change app color based on weather
 
 ## Documentation ##
 
