@@ -72,10 +72,6 @@ class MainActivity : BaseActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = null
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         requestLocationUpdates()
     }
