@@ -112,7 +112,6 @@ dependencies {
     // Android
     implementation libs.appCompat
     implementation libs.core_ktx
-    implementation libs.recyclerView
     implementation libs.swipeRefresh
     implementation "androidx.constraintlayout:constraintlayout:2.1.3"
     implementation libs.material
