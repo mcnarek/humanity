@@ -1,6 +1,6 @@
 Weather demo app
 
-# Weather [icon](https://user-images.githubusercontent.com/5946745/160274616-ac52442b-b83b-4aa6-b1d7-e1ddb298ce18.png) #
+# Weather (https://user-images.githubusercontent.com/5946745/160274616-ac52442b-b83b-4aa6-b1d7-e1ddb298ce18.png) #
 
 Weather is an application for Android, to show current location weather
 
@@ -20,10 +20,13 @@ App will show nearby image in city as background
 Developed with Love using:
 
 - Language - Kotlin
-- Android SDK version 31 (min version 21)
+- Android SDK version - 31
 - Build tools - 31.0.0
+- Min android support version - 21
 - Gradle - 7.1.2
+- Gradle plugin - 7.4.1
 - Architecture - MVVM
+- UI - ViewBidning
 - API openweathermap.org - [developer guide]: https://openweathermap.org/api
 
 ## Used Libraries ##
