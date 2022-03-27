@@ -74,3 +74,4 @@ repository.
 #### About author ####
 
 Narek Hayrapetyan - Android software engineer
+(https://mcnarek.org)
