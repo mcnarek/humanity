@@ -9,7 +9,7 @@ import com.humanity.weatherapp.domain.entity.PlaceEntity
 import com.humanity.weatherapp.domain.entity.WeatherEntity
 import com.humanity.weatherapp.domain.enums.WeatherUnits
 import com.humanity.weatherapp.domain.mapper.WeatherMapper
-import com.humanity.weatherapp.domain.repository.PlaceRepositoryImpl
+import com.humanity.weatherapp.domain.repository.PlaceRepository
 import com.humanity.weatherapp.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class WeatherUseCaseImpl @Inject constructor(
     private val _weatherRepository: WeatherRepository,
-    private val _placeRepository: PlaceRepositoryImpl
+    private val _placeRepository: PlaceRepository
 ) : WeatherUseCase {
     override suspend fun getCurrentWeather(locationData: LocationData): Flow<WeatherEntity> {
         val response = _weatherRepository.getWeather(
