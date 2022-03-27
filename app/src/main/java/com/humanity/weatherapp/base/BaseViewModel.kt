@@ -2,6 +2,7 @@ package com.humanity.weatherapp.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.humanity.weatherapp.domain.entity.ErrorData
 
 
 /**
@@ -10,7 +11,7 @@ import androidx.lifecycle.ViewModel
  * E-Mail: mcnarek@gmail.com
  */
 abstract class BaseViewModel : ViewModel() {
-    protected val errorLiveData: MutableLiveData<String?> by lazy { MutableLiveData() }
-    val error: MutableLiveData<String?>
+    protected val errorLiveData: MutableLiveData<ErrorData?> by lazy { MutableLiveData() }
+    val error: MutableLiveData<ErrorData?>
         get() = errorLiveData
 }

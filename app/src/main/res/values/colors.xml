@@ -17,4 +17,5 @@
     <color name="fog_color">#62737C</color>
     <color name="clear_color">#0089D1</color>
     <color name="clouds_color">#2E5265</color>
+    <color name="transparent">#0000</color>
 </resources>

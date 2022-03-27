@@ -11,19 +11,23 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import coil.load
 import com.humanity.weatherapp.R
 import com.humanity.weatherapp.base.BaseActivity
 import com.humanity.weatherapp.base.extensions.colorInt
+import com.humanity.weatherapp.base.extensions.isConnectedNetwork
 import com.humanity.weatherapp.base.extensions.now
 import com.humanity.weatherapp.base.extensions.setStatusBarColor
 import com.humanity.weatherapp.databinding.ActivityMainBinding
+import com.humanity.weatherapp.databinding.LayoutNoInternetBinding
 import com.humanity.weatherapp.domain.entity.PlaceEntity
 import com.humanity.weatherapp.domain.entity.WeatherEntity
 import dagger.hilt.android.AndroidEntryPoint
@@ -154,7 +158,10 @@ class MainActivity : BaseActivity() {
 
         weatherViewModel.error.observe(this) {
             binding.swipeRefresh.isRefreshing = false
-            showSnackBar(it, null)
+            showSnackBar(it?.message, null)
+            if (it?.message.equals(getString(R.string.no_internet))) {
+                showNoInternet(true)
+            }
         }
     }
 
@@ -228,5 +235,34 @@ class MainActivity : BaseActivity() {
                 Uri.parse("package:${this.packageName}")
             )
         )
+    }
+
+    override fun showCustomNoInternet() {
+        showNoInternet(true)
+    }
+
+    override fun hideCustomNoInternet() {
+        showNoInternet(false)
+    }
+
+    private fun showNoInternet(show: Boolean) {
+        binding.stubNoInternet.apply {
+            if (show) {
+                val inflatedView: View? = inflate()
+                val binding: LayoutNoInternetBinding? = inflatedView?.let {
+                    LayoutNoInternetBinding.bind(it)
+                }
+                binding?.retryButton?.setOnClickListener {
+                    if (context.isConnectedNetwork) {
+                        isVisible = false
+                        weatherViewModel.refresh()
+                    } else {
+                        setVisible(true)
+                    }
+                }
+            } else {
+                setVisible(false)
+            }
+        }
     }
 }

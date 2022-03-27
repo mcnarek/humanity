@@ -25,8 +25,8 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="end|top"
-        android:background="@null"
         android:alpha="0.8"
+        android:background="@null"
         app:layout_anchorGravity="end|top"
         app:lottie_autoPlay="true"
         app:lottie_loop="true" />
@@ -50,18 +50,18 @@
             app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:id="@+id/toolbar"
                 android:backgroundTint="@null"
                 android:elevation="0dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:layout_width="match_parent"
             android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ScrollView
@@ -158,5 +158,11 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
+
+    <ViewStub
+        android:id="@+id/stubNoInternet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/layout_no_internet"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

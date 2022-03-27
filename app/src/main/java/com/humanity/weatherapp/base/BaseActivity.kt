@@ -2,12 +2,9 @@ package com.humanity.weatherapp.base
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.datatransport.runtime.retries.Retries.retry
 import com.google.android.material.snackbar.Snackbar
 import com.humanity.weatherapp.R
 import com.humanity.weatherapp.base.extensions.isConnectedNetwork
-import dagger.hilt.EntryPoint
-import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
@@ -49,14 +46,24 @@ abstract class BaseActivity : AppCompatActivity() {
                     setAction(actionName) {
                         if (context.isConnectedNetwork) {
                             dismiss()
+                            hideCustomNoInternet()
                         } else {
                             showSnackBar(text, actionName)
+                            showCustomNoInternet()
                         }
                     }
                 }
             }
             snackBar?.show()
         }
+    }
+
+    protected open fun showCustomNoInternet() {
+
+    }
+
+    protected open fun hideCustomNoInternet() {
+
     }
 
     override fun onStop() {

@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.humanity.weatherapp.base.BaseViewModel
+import com.humanity.weatherapp.domain.entity.ErrorData
 import com.humanity.weatherapp.domain.entity.LocationData
 import com.humanity.weatherapp.domain.entity.PlaceEntity
 import com.humanity.weatherapp.domain.entity.WeatherEntity
@@ -75,14 +76,14 @@ class WeatherViewModel @Inject constructor(
             _weatherUseCase.getCurrentWeather(
                 locationData = locationData
             ).catch {
-                errorLiveData.postValue(it.message)
+                errorLiveData.postValue(ErrorData(it.message))
             }.collectLatest {
                 _weatherLiveData.postValue(it)
             }
 
             _weatherUseCase.getCurrentCityInfo()
                 .catch {
-                    errorLiveData.postValue(it.message)
+                    errorLiveData.postValue(ErrorData(it.message))
                 }
                 .collectLatest {
                     _placeLiveData.postValue(it)

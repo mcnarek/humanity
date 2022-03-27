@@ -1,11 +1,13 @@
 package com.humanity.weatherapp.api
 
+import android.content.Context
 import android.util.Log
 import com.humanity.weatherapp.BuildConfig
 import com.humanity.weatherapp.api.services.WeatherService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,11 +34,13 @@ object RetrofitModule {
     fun provideOkHttpClient(
         @Named("appInterceptor") appInterceptor: Interceptor,
         @Named("errorInterceptor") errorInterceptor: Interceptor,
+         connectivityInterceptor: ConnectivityInterceptor
     ): OkHttpClient = OkHttpClient.Builder().apply {
         readTimeout(TIMEOUT, TimeUnit.SECONDS)
         writeTimeout(TIMEOUT, TimeUnit.SECONDS)
         connectTimeout(TIMEOUT, TimeUnit.SECONDS)
         addInterceptor(errorInterceptor)
+        addInterceptor(connectivityInterceptor)
         addInterceptor(appInterceptor)
         if (BuildConfig.DEBUG) {
             addInterceptor(HttpLoggingInterceptor { Log.d("api", it) }
@@ -85,6 +89,11 @@ object RetrofitModule {
         .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+
+    @Singleton
+    @Provides
+    fun provideConnectivityInterceptor(@ApplicationContext context: Context): ConnectivityInterceptor =
+        ConnectivityInterceptor(context = context)
 
     @Provides
     @Singleton
