@@ -1,6 +1,8 @@
 Weather demo app
 
-# Weather (https://user-images.githubusercontent.com/5946745/160274616-ac52442b-b83b-4aa6-b1d7-e1ddb298ce18.png) #
+# Weather App
+
+![icon](https://user-images.githubusercontent.com/5946745/160274616-ac52442b-b83b-4aa6-b1d7-e1ddb298ce18.png) #
 
 Weather is an application for Android, to show current location weather
 
