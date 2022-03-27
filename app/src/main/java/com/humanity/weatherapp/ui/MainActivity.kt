@@ -37,8 +37,22 @@ class MainActivity : BaseActivity() {
     /**
      * Location permission launcher
      */
-    private val requestLocationPermissionLauncher: ActivityResultLauncher<Array<String>> by lazy {
-        registerForActivityResult(
+    private lateinit var requestLocationPermissionLauncher: ActivityResultLauncher<Array<String>>
+
+    private var locationPermissionHasGiven: Boolean = false
+
+    private val weatherViewModel: WeatherViewModel by viewModels()
+
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
+        requestLocationPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
             locationPermissionHasGiven = when {
@@ -55,23 +69,13 @@ class MainActivity : BaseActivity() {
                 startWeatherUpdates()
             }
         }
-    }
-
-    private var locationPermissionHasGiven: Boolean = false
-
-    private val weatherViewModel: WeatherViewModel by viewModels()
-
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = null
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         requestLocationUpdates()
     }
