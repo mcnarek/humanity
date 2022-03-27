@@ -13,6 +13,8 @@ interface LocationManager {
      */
     var onLocationUpdatedCallBack: ((Location) -> Unit)?
 
+    var onError: ((String) -> Unit)?
+
     /**
      * start requesting location data
      */

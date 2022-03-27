@@ -59,6 +59,10 @@ class WeatherViewModel @Inject constructor(
             getWeather(it, currentUnits)
         }
 
+        _locationManager.onError = {
+            errorLiveData.postValue(ErrorData(it))
+        }
+
         _locationManager.requestLocationUpdates()
     }
 
