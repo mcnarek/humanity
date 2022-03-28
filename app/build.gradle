@@ -33,8 +33,14 @@ android {
         buildConfigField "String", "PLACES_API_KEY", placesApiKey
     }
 
+    useLibrary 'android.test.mock'
+
     packagingOptions {
         resources.excludes.add("META-INF/*")
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
     }
 
     buildTypes {
@@ -43,6 +49,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -152,12 +159,15 @@ dependencies {
     implementation libs.coil
     implementation libs.lottie
 
+    // testing
     testImplementation libs.mockito
     androidTestImplementation libs.mockito
     testImplementation libs.mockitoKotlin
     testImplementation libs.coroutines_test
     testImplementation libs.mockito_inline
     androidTestImplementation libs.coroutines_test
+    testImplementation libs.roboletrics
+    testImplementation libs.mockServer
 }
 
 kapt {
